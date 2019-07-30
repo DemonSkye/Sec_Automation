@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,6 +12,7 @@ public class LogParse {
         ArrayList<String> contents = fileToStrings(new File(filePath));
         ArrayList<LogObject> events = createObjects(contents);
         contents = null;
+        Collections.sort(events, new LogObject.sortByCount() );
         for(LogObject o:events){
             o.output();
         }

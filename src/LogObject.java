@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class LogObject {
     private String ip_addr;
@@ -9,9 +10,20 @@ public class LogObject {
     private ArrayList<Integer> respTime = new ArrayList<>();
     private ArrayList<String> referrer = new ArrayList<>();
     private ArrayList<String> userAgent = new ArrayList<>();
-    private int count =0;
+    private int count = 1;
 
 
+    /**
+     * Constructor
+     * @param ip ip address
+     * @param ts timestamp
+     * @param v verb
+     * @param r request
+     * @param stat status response
+     * @param respt response time
+     * @param ref referrer
+     * @param ua User Agent
+     */
     LogObject(String ip, String ts, String v, String r, int stat, int respt, String ref, String ua){
         ip_addr = ip;
         timeStamp.add(ts);
@@ -23,20 +35,34 @@ public class LogObject {
         userAgent.add(ua);
     }
 
+    /**
+     * Method to output contents of events where IP hit at least 5 times
+     * Todo: configure 5 to be user defined via some interface.
+     */
     void output(){
-        System.out.println("IPv4 Address: " + ip_addr);
-        System.out.println("TimeStamps: " + timeStamp);
-        System.out.println("Verbs: " + verb);
-        System.out.println("Requests: " + req);
-        System.out.println("Status Responses: " + statusResp);
-        System.out.println("ResponseTimes: " + respTime);
-        System.out.println("Referrers: " + referrer);
-        System.out.println("User Agents: ");
-        System.out.println("Count for IP: " + count);
+        if(count > 5){
+            System.out.println("Summary for : " + ip_addr);
+            System.out.println("TimeStamps: " + timeStamp);
+            System.out.println("Verbs: " + verb);
+            System.out.println("Requests: " + req);
+            System.out.println("Status Responses: " + statusResp);
+            System.out.println("ResponseTimes: " + respTime);
+            System.out.println("Referrers: " + referrer);
+            System.out.println("User Agents: ");
+            System.out.println("Count for IP: " + count + "\n\n");
+        }
+    }
 
+    static class sortByCount implements Comparator<LogObject> {
+        public int compare(LogObject a, LogObject b){
+            return a.count - b.count;
+        }
     }
 
 
+    /**
+     * Accessors / setters / adders
+     */
     public String getIp_addr() {
         return ip_addr;
     }
