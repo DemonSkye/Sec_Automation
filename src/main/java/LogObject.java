@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class LogObject {
-    private String ip_addr;
-    private ArrayList<String> timeStamp = new ArrayList<>();
-    private ArrayList<String> verb = new ArrayList<>();
-    private ArrayList<String> req = new ArrayList<>();
-    private ArrayList<Integer> statusResp = new ArrayList<>();
-    private ArrayList<Integer> respTime = new ArrayList<>();
-    private ArrayList<String> referrer = new ArrayList<>();
-    private ArrayList<String> userAgent = new ArrayList<>();
+    String ip_addr;
+    ArrayList<String> timeStamp = new ArrayList<>();
+    ArrayList<String> verb = new ArrayList<>();
+    ArrayList<String> req = new ArrayList<>();
+    ArrayList<Integer> statusResp = new ArrayList<>();
+    ArrayList<Integer> respTime = new ArrayList<>();
+    ArrayList<String> referrer = new ArrayList<>();
+    ArrayList<String> userAgent = new ArrayList<>();
     private int count = 1;
     String country;
     String city;
@@ -46,6 +46,9 @@ public class LogObject {
     void output(){
         if(count > 5){
             System.out.println("Summary for : " + ip_addr);
+            System.out.println("Country: " + country);
+            System.out.println("City: " + country);
+            System.out.println("Lat / Long: " + lat + "/" + lon);
             System.out.println("TimeStamps: " + timeStamp);
             System.out.println("Verbs: " + verb);
             System.out.println("Requests: " + req);

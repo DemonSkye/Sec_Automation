@@ -23,17 +23,25 @@ public class GeoLookUp {
         String getResult;
         if(statusCode != HttpStatus.SC_OK){
             System.err.println(resp.getStatusLine().getStatusCode());
-            System.err.println("Error connecting to salesforce.com");
+            System.err.println("Error connecting to API server");
         }
         JSONObject json;
         ArrayList<String> geo = new ArrayList<>();
         try {
             getResult = EntityUtils.toString(resp.getEntity());
             json = (JSONObject) new JSONTokener(getResult).nextValue();
-            geo.add(json.getString("country_name"));
-            geo.add(json.getString("city"));
-            geo.add(json.getString("latitude"));
-            geo.add(json.getString("longitude"));
+            try{
+                geo.add(json.getString("country_name"));
+            }catch (org.json.JSONException JSE){JSE.printStackTrace(); } finally { if(geo.size() == 0)geo.add("country not found");}
+            try{
+                geo.add(json.getString("city"));
+            }catch (org.json.JSONException JSE){JSE.printStackTrace(); } finally {if(geo.size() == 1)geo.add("city not found");}
+            try{
+                geo.add(String.valueOf(json.getDouble("latitude")));
+            }catch (org.json.JSONException JSE){JSE.printStackTrace(); } finally {if(geo.size() == 2)geo.add("lat not found");}
+            try{
+                geo.add(String.valueOf(json.getDouble("longitude")));
+            }catch (org.json.JSONException JSE){JSE.printStackTrace(); } finally {if(geo.size() == 3)geo.add("long not found");}
 
         }catch (IOException IOE) { IOE.printStackTrace(); }
         return geo;
