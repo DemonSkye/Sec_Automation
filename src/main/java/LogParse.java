@@ -60,6 +60,13 @@ public class LogParse {
                                 e.addRef(matcher.group(7));
                                 e.addUA(matcher.group(8));
                                 e.setCount(e.getCount()+1);
+                                if(e.getCount() > 5 && e.country == null){
+                                    ArrayList<String> geo = GeoLookUp.getGeoFromIP(e.getIp_addr());
+                                    e.country = geo.get(0);
+                                    e.city = geo.get(1);
+                                    e.lat = geo.get(2);
+                                    e.lon = geo.get(3);
+                                }
                                 found = true;
                                 break;
                             }

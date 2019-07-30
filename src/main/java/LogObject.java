@@ -11,6 +11,10 @@ public class LogObject {
     private ArrayList<String> referrer = new ArrayList<>();
     private ArrayList<String> userAgent = new ArrayList<>();
     private int count = 1;
+    String country;
+    String city;
+    String lat;
+    String lon;
 
 
     /**
